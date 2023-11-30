@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Thời Trang</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+</head>
+
+<body>
+    <section id="header">
+        <a href="{% url 'index' %}"><img class="logo" src="{% static 'images/logo.png' %}" alt=""></a>
+    
+        <div>
+            <ul id="navbar">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li class="dropdown">
+                    <a href="{% url 'shop' %}" class="dropbtn">Shop</a>
+                    <div class="dropdown-content">
+                        {% for category in categories %}
+                        <a href="{% url 'category' pk=category.pk %}">{{ category.category_name }}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+                <li><a href="{% url 'blog' %}">Blog</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a class="active" href="{% url 'contact' %}">Contact</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">LOGIN</a></li>
+                {% endif %}
+                <li><a href="{% url 'user' %}">{{request.user}}</a></li>
+                <li id="lg-bag"><a href="{% url 'cart' %}"><i class="fa-solid fa-bag-shopping"></i></a></li>
+                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="{% url 'cart' %}"><i class="fa-solid fa-bag-shopping"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <section id="page-header" style="background-image: url('{% static 'images/about/banner.png' %}');">
+        <h2>#Let's_talk</h2>
+        <p>LEAVE A MESSAGE, We love to hear from you!</p>
+    </section>
+
+    <section id="contact-details" class="section-p1">
+        <div class="details">
+            <span>GET IN TOUCH</span>
+            <h2>Visit one of our agency locations or contact us today</h2>
+            <h3>Head Office</h3>
+            <div>
+                <li>
+                    <i class="fa-solid fa-map"></i>
+                    <p>1 Võ Văn Ngân, Phường Linh Chiểu, TP Thủ Đức, TP Hồ Chí Minh.</p>
+                </li>
+                <li>
+                    <i class="fa-solid fa-envelope"></i>
+                    <p>ptchc@hcmute.edu.vn</p>
+                </li>
+                <li>
+                    <i class="fa-solid fa-phone"></i>
+                    <p>(+84 - 028) 38968641 - (+84 -028) 38961333 - (+84 -028) 37221223</p>
+                </li>
+                <li>
+                    <i class="fa-solid fa-clock"></i>
+                    <p>07:00 - 21:30, Mon - Sun</p>
+                </li>
+            </div>
+        </div>
+        <div class="map">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.4853986110647!2d106.76933817365654!3d10.8506376578233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752763f23816ab%3A0x282f711441b6916f!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBTxrAgcGjhuqFtIEvhu7kgdGh14bqtdCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmg!5e0!3m2!1svi!2s!4v1697643020131!5m2!1svi!2s"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </section>
+
+    <section id="form-details">
+        <form action="">
+            <span>LEAVE A MESSAGE</span>
+            <h2>We love to hear from you</h2>
+            <input type="text" placeholder="Your name">
+            <input type="text" placeholder="E-mail">
+            <input type="text" placeholder="Subject">
+            <textarea name="" id="" cols="30" rows="10" placeholder="Your Message"></textarea>
+            <button class="normal">Submit</button>
+        </form>
+
+        <div class="people">
+            <div>
+                <img src="{% static 'images/people/phat.jpg' %}" alt="">
+                <p><span>Đào Duy Phát</span>Sinh viên trường SPKT TPHCM <br> Phone: 0865577718
+                    <br>Email: 21110270@student.hcmute.edu.vn
+                </p>
+            </div>
+            <div>
+                <img src="{% static 'images/people/tu.jpg' %}" alt="">
+                <p><span>Lê Nguyễn Thiên Tứ</span>Sinh viên trường SPKT TPHCM <br> Phone:
+                    <br>Email: @student.hcmute.edu.vn
+                </p>
+            </div>
+            <div>
+                <img src="{% static 'images/people/tien.jpg' %}" alt="">
+                <p><span>Trần Thị Á Tiên</span>Sinh viên trường SPKT TPHCM <br> Phone:
+                    <br>Email: @student.hcmute.edu.vn
+                </p>
+            </div>
+            <div>
+                <img src="{% static 'images/people/duy.jpg' %}" alt="">
+                <p><span>Lê Đức Duy</span>Sinh viên trường SPKT TPHCM <br> Phone:
+                    <br>Email: @student.hcmute.edu.vn
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="newsletter" class="section-p1 section-m1"
+        style="background-image: url('{% static 'images/banner/b14.jpg' %}');">
+        <div class="newstext">
+            <h4>Sign Up For Newsletters</h4>
+            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your email address">
+            <button class="normal">Sign Up</button>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="{% static 'images/logo.png' %}" alt="">
+            <h4>Contact</h4>
+            <p><strong>Address: </strong>1 Võ Văn Ngân, Phường Linh Chiểu, TP Thủ Đức, TP Hồ Chí Minh.</p>
+            <p><strong>Phone: </strong>(+84 - 028) 38968641 - (+84 -028) 38961333 - (+84 -028) 37221223</p>
+            <p><strong>Fax: </strong>(+84 - 028) 38964922</p>
+            <p><strong>E-mail: </strong>ptchc@hcmute.edu.vn</p>
+            <p><strong>Hours: </strong>07:00 - 21:30, Mon - Sun</p>
+            <div class="follow">
+                <h4>Follow us</h4>
+                <div class="icon">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fa-brands fa-pinterest-p"></i>
+                    <i class="fab fa-youtube"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App Store or Google Play</p>
+            <div class="row">
+                <img src="{% static 'images/pay/app.jpg' %}" alt="">
+                <img src="{% static 'images/pay/play.jpg' %}" alt="">
+            </div>
+            <p>Secured Payment Gateways</p>
+            <img src="{% static 'images/pay/pay.png' %}" alt="">
+        </div>
+        <div class="copyright">
+            <p>Copyright © 2013, Trường Đại Học Sư Phạm Kỹ Thuật - Tp.HCM</p>
+        </div>
+    </footer>
+    <script src="{% static 'scripts/script.js' %}"></script>
+
+</body>
+
+</html>

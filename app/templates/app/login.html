@@ -1,0 +1,216 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Form Validator</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <section id="header">
+        <a href="{% url 'index' %}"><img class="logo" src="{% static 'images/logo.png' %}" alt=""></a>
+    
+        <div>
+            <ul id="navbar">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li class="dropdown">
+                    <a href="{% url 'shop' %}" class="dropbtn">Shop</a>
+                    <div class="dropdown-content">
+                        {% for category in categories %}
+                        <a href="{% url 'category' pk=category.pk %}">{{ category.category_name }}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+                <li><a href="{% url 'blog' %}">Blog</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+                {% else %}
+                <li><a class="active" href="{% url 'login' %}">LOGIN</a></li>
+                {% endif %}
+                <li><a href="{% url 'user' %}">{{request.user}}</a></li>
+                <li id="lg-bag"><a href="{% url 'cart' %}"><i class="fa-solid fa-bag-shopping"></i></a></li>
+                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="{% url 'cart' %}"><i class="fa-solid fa-bag-shopping"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <!-- <h1>register</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" name="Create user" value="Đăng ký">
+    </form> -->
+    <section class="vh-100" style="padding: 50px;">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-lg-12 col-xl-11">
+                    <div class="card text-black" style="border-radius: 25px;">
+                        <div class="card-body p-md-5">
+                            <div class="row justify-content-center">
+                                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">LOGIN</p>
+
+                                    <form class="mx-1 mx-md-4" method="POST" action="">
+                                        {% csrf_token %}
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label" for="form3Example1c">User Name</label>
+                                                <input type="text" name="username" id="form3Example1c" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label" for="form3Example4c">Password</label>
+                                                <input type="password" name="password" id="form3Example4c" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <p class="text-center h6 fw-bold mb-5 mx-1 mx-md-4 mt-4">Don't have an account ? <a href="{% url 'register' %}">Register Now</a></p>
+
+                                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                                <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                                        class="img-fluid" alt="Sample image">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Lấy modal
+        var modal = document.getElementById("myModal");
+
+        // Lấy phần tử <span> đóng modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // Khi người dùng bấm nút <span> (x), đóng modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // Khi người dùng bấm bất kỳ đâu ngoài modal, đóng modal
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Hiển thị modal khi có messages
+        {% if messages %}
+        document.addEventListener('DOMContentLoaded', function () {
+            modal.style.display = "block";
+        });
+        {% endif %}
+    </script>
+
+    <section id="newsletter" class="section-p1 section-m1"
+        style="background-image: url('{% static 'images/banner/b14.jpg' %}');">
+        <div class="newstext">
+            <h4>Sign Up For Newsletters</h4>
+            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your email address">
+            <button class="normal">Sign Up</button>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="{% static 'images/logo.png' %}" alt="">
+            <h4>Contact</h4>
+            <p><strong>Address: </strong>1 Võ Văn Ngân, Phường Linh Chiểu, TP Thủ Đức, TP Hồ Chí Minh.</p>
+            <p><strong>Phone: </strong>(+84 - 028) 38968641 - (+84 -028) 38961333 - (+84 -028) 37221223</p>
+            <p><strong>Fax: </strong>(+84 - 028) 38964922</p>
+            <p><strong>E-mail: </strong>ptchc@hcmute.edu.vn</p>
+            <p><strong>Hours: </strong>07:00 - 21:30, Mon - Sun</p>
+            <div class="follow">
+                <h4>Follow us</h4>
+                <div class="icon">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fa-brands fa-pinterest-p"></i>
+                    <i class="fab fa-youtube"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App Store or Google Play</p>
+            <div class="row">
+                <img src="{% static 'images/pay/app.jpg' %}" alt="">
+                <img src="{% static 'images/pay/play.jpg' %}" alt="">
+            </div>
+            <p>Secured Payment Gateways</p>
+            <img src="{% static 'images/pay/pay.png' %}" alt="">
+        </div>
+        <div class="copyright">
+            <p>Copyright © 2013, Trường Đại Học Sư Phạm Kỹ Thuật - Tp.HCM</p>
+        </div>
+    </footer>
+    <script src="{% static 'scripts/script.js' %}"></script>
+
+    <script src="{% static 'scripts/SignUp.js' %}"></script>
+</body>
+
+</html>

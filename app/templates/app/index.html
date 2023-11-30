@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Thời Trang</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+</head>
+
+<body>
+    <section id="header">
+        <a href="{% url 'index' %}"><img class="logo" src="{% static 'images/logo.png' %}" alt=""></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a class="active" href="{% url 'index' %}">Home</a></li>
+                <li class="dropdown">
+                    <a href="{% url 'shop' %}" class="dropbtn">Shop</a>
+                    <div class="dropdown-content">
+                        {% for category in categories %}
+                        <a href="{% url 'category' pk=category.pk %}">{{ category.category_name }}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+                <li><a href="{% url 'blog' %}">Blog</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">LOGIN</a></li>
+                {% endif %}
+                <li><a href="{% url 'user' %}">{{request.user}}</a></li>
+                <li id="lg-bag"><a href="{% url 'cart' %}"><i class="fa-solid fa-bag-shopping"></i></a></li>
+                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="{% url 'cart' %}"><i class="fa-solid fa-bag-shopping"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <section id="hero" style="background-image: url('{% static 'images/hero4.png' %}');">
+        <h4>Trade-in-offer</h4>
+        <h2>Super value deals</h2>
+        <h1>On all products</h1>
+        <p>Save more with coupons & up to 70% off!</p>
+        <button style="background-image: url('{% static 'images/button.png' %}');">Shop Now</button>
+    </section>
+
+    <section id="feature" class="section-p1">
+        <div class="fe-box">
+            <img src="{% static 'images/features/f1.png' %}" alt="">
+            <h6>Free Shipping</h6>
+        </div>
+        <div class="fe-box">
+            <img src="{% static 'images/features/f2.png' %}" alt="">
+            <h6>Online Order</h6>
+        </div>
+        <div class="fe-box">
+            <img src="{% static 'images/features/f3.png' %}" alt="">
+            <h6>Save Money</h6>
+        </div>
+        <div class="fe-box">
+            <img src="{% static 'images/features/f4.png' %}" alt="">
+            <h6>Promotions</h6>
+        </div>
+        <div class="fe-box">
+            <img src="{% static 'images/features/f5.png' %}" alt="">
+            <h6>Happy Sell</h6>
+        </div>
+        <div class="fe-box">
+            <img src="{% static 'images/features/f6.png' %}" alt="">
+            <h6>F24/7 Support</h6>
+        </div>
+    </section>
+
+    <section id="product1" class="section-p1">
+        <h2>New Shirts</h2>
+        <p>Summer Collection New Morden Design</p>
+        <div class="pro-container">
+            {% for product in pro_cate_1 %}
+            <div class="pro">
+                <a href="{% url 'product' pk=product.product_id %}">
+                    <img src="{% static 'images/products' %}/{{product.product_image}}" alt="">
+                    <div class="des">
+                        <h5>{{ product.product_name }}</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>${{ product.product_price }}</h4>
+                    </div>
+                </a>
+                <a href="{% url 'product' pk=product.product_id %}"><i class="fa-solid fa-cart-plus cart"></i></a>
+            </div>
+            {% endfor %}
+            {% for product in pro_cate_2 %}
+            <div class="pro">
+                <a href="{% url 'product' pk=product.product_id %}">
+                    <img src="{% static 'images/products' %}/{{product.product_image}}" alt="">
+                    <div class="des">
+                        <h5>{{ product.product_name }}</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>${{ product.product_price }}</h4>
+                    </div>
+                </a>
+                <a href="{% url 'product' pk=product.product_id %}"><i class="fa-solid fa-cart-plus cart"></i></a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="product1" class="section-p1">
+        <h2>New Jackets</h2>
+        <div class="pro-container">
+            {% for product in pro_cate_3 %}
+            <div class="pro">
+                <a href="{% url 'product' pk=product.product_id %}">
+                    <img src="{% static 'images/products' %}/{{product.product_image}}" alt="">
+                    <div class="des">
+                        <h5>{{ product.product_name }}</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>${{ product.product_price }}</h4>
+                    </div>
+                </a>
+                <a href="{% url 'product' pk=product.product_id %}"><i class="fa-solid fa-cart-plus cart"></i></a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="product1" class="section-p1">
+        <h2>New Dresses</h2>
+        <div class="pro-container">
+            {% for product in pro_cate_6 %}
+            <div class="pro">
+                <a href="{% url 'product' pk=product.product_id %}">
+                    <img src="{% static 'images/products' %}/{{product.product_image}}" alt="">
+                    <div class="des">
+                        <h5>{{ product.product_name }}</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>${{ product.product_price }}</h4>
+                    </div>
+                </a>
+                <a href="{% url 'product' pk=product.product_id %}"><i class="fa-solid fa-cart-plus cart"></i></a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="banner" class="section-m1" style="background-image: url('{% static 'images/banner/b2.jpg' %}');">
+        <h4>Repair Services</h4>
+        <h2>Up to <span>70% Off</span> - All T-Shirt & Accessories</h2>
+        <button class="normal">Explore More</button>
+    </section>
+
+    <section id="product1" class="section-p1">
+        <h2>New Pants</h2>
+        <div class="pro-container">
+            {% for product in pro_cate_4 %}
+            <div class="pro">
+                <a href="{% url 'product' pk=product.product_id %}">
+                    <img src="{% static 'images/products' %}/{{product.product_image}}" alt="">
+                    <div class="des">
+                        <h5>{{ product.product_name }}</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>${{ product.product_price }}</h4>
+                    </div>
+                </a>
+                <a href="{% url 'product' pk=product.product_id %}"><i class="fa-solid fa-cart-plus cart"></i></a>
+            </div>
+            {% endfor %}
+            {% for product in pro_cate_5 %}
+            <div class="pro">
+                <a href="{% url 'product' pk=product.product_id %}">
+                    <img src="{% static 'images/products' %}/{{product.product_image}}" alt="">
+                    <div class="des">
+                        <h5>{{ product.product_name }}</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>${{ product.product_price }}</h4>
+                    </div>
+                </a>
+                <a href="{% url 'product' pk=product.product_id %}"><i class="fa-solid fa-cart-plus cart"></i></a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="sm-banner" class="section-p1">
+        <div class="banner-box" style="background-image: url('{% static 'images/banner/b17.jpg' %}');">
+            <h4>Crazy deals</h4>
+            <h2>Buy 1 get 1 free</h2>
+            <span>The best classic dress is on sale at cara</span>
+            <button class="white">Learn More</button>
+        </div>
+        <div class="banner-box" style="background-image: url('{% static 'images/banner/b10.jpg' %}');">
+            <h4>Spring/Summer</h4>
+            <h2>Upcomming season</h2>
+            <span>The best classic dress is on sale at cara</span>
+            <button class="white">Learn More</button>
+        </div>
+    </section>
+
+    <section id="banner3">
+        <div class="banner-box" style="background-image: url('{% static 'images/banner/b7.jpg' %}');">
+            <h2>SEASON SALE</h2>
+            <h3>Winter Collection - 50% OFF</h3>
+        </div>
+        <div class="banner-box" style="background-image: url('{% static 'images/banner/b4.jpg' %}');">
+            <h2>NEW FOOTWEAR COLLECTION</h2>
+            <h3>Sring/Summer 2023</h3>
+        </div>
+        <div class="banner-box" style="background-image: url('{% static 'images/banner/b18.jpg' %}');">
+            <h2>T-SHIRT</h2>
+            <h3>New Trendy Prints</h3>
+        </div>
+    </section>
+
+    <section id="newsletter" class="section-p1 section-m1"
+        style="background-image: url('{% static 'images/banner/b14.jpg' %}');">
+        <div class="newstext">
+            <h4>Sign Up For Newsletters</h4>
+            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your email address">
+            <button class="normal">Sign Up</button>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="{% static 'images/logo.png' %}" alt="">
+            <h4>Contact</h4>
+            <p><strong>Address: </strong>1 Võ Văn Ngân, Phường Linh Chiểu, TP Thủ Đức, TP Hồ Chí Minh.</p>
+            <p><strong>Phone: </strong>(+84 - 028) 38968641 - (+84 -028) 38961333 - (+84 -028) 37221223</p>
+            <p><strong>Fax: </strong>(+84 - 028) 38964922</p>
+            <p><strong>E-mail: </strong>ptchc@hcmute.edu.vn</p>
+            <p><strong>Hours: </strong>07:00 - 21:30, Mon - Sun</p>
+            <div class="follow">
+                <h4>Follow us</h4>
+                <div class="icon">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fa-brands fa-pinterest-p"></i>
+                    <i class="fab fa-youtube"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App Store or Google Play</p>
+            <div class="row">
+                <img src="{% static 'images/pay/app.jpg' %}" alt="">
+                <img src="{% static 'images/pay/play.jpg' %}" alt="">
+            </div>
+            <p>Secured Payment Gateways</p>
+            <img src="{% static 'images/pay/pay.png' %}" alt="">
+        </div>
+        <div class="copyright">
+            <p>Copyright © 2013, Trường Đại Học Sư Phạm Kỹ Thuật - Tp.HCM</p>
+        </div>
+    </footer>
+    <script src="{% static 'scripts/script.js' %}"></script>
+
+</body>
+
+</html>
